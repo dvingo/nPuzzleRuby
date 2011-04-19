@@ -1,5 +1,5 @@
 require_relative '../../mvGraph/lib/mvGraph.rb'
-class Block < Vertex
+class Block
   attr_reader :number
   def initialize(number)
     @number = number

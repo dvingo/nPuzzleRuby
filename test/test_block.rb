@@ -19,10 +19,4 @@ class TestBlock < MiniTest::Unit::TestCase
     assert b1.eql? b2
     assert_equal b1, b2
   end
-
-  def test_extends_vertex
-    b = Block.new(1)
-    b.id = 1
-    assert b.id == 1
-  end
 end
