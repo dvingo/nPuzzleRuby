@@ -47,8 +47,8 @@ class Grid < Vertex
     result = false
     if other_grid.x == @x && other_grid.y == @y 
       result = true
-      for y in 0..other_grid.y do
-        for x in 0..other_grid.x do
+      for y in 0...other_grid.y do
+        for x in 0...other_grid.x do
            unless other_grid.block(x, y) == self.block(x, y)
 	     result = false
 	   end
@@ -62,8 +62,8 @@ class Grid < Vertex
     result = false
     if other_grid.x == @x && other_grid.y == @y 
       result = true
-      for y in 0..other_grid.y do
-        for x in 0..other_grid.x do
+      for y in 0...other_grid.y do
+        for x in 0...other_grid.x do
            unless other_grid.block(x, y) == self.block(x, y)
 	     result = false
 	   end
