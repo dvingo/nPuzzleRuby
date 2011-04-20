@@ -20,6 +20,9 @@ class Grid < Vertex
   end
 
   def next_states
+    states = []
+    # get the x, y for the nil block and move all surrounding squares into it
+    # for the next states
 
   end
 

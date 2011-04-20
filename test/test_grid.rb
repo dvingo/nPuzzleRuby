@@ -40,10 +40,12 @@ class TestGrid < MiniTest::Unit::TestCase
     refute @grid.block(0, -1)
   end
 
-  #def test_next_state
-  #  states = @grid.next_states
-
-  #end
+  def test_next_state
+    states = @grid.next_states
+    states.each do |state|
+      refute states.block(2, 2).nil?
+    end
+  end
 
   def test_to_s
     puts @grid
