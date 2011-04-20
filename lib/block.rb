@@ -16,4 +16,8 @@ class Block
   def hash
     @number.hash
   end
+
+  def to_s
+    "#{@number}"
+  end
 end

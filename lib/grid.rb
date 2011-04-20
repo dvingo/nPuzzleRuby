@@ -1,5 +1,8 @@
 require_relative '../../mvGraph/lib/mvGraph.rb'
 class Grid < Vertex
+  include Enumerable
+  attr_reader :x, :y
+
   def initialize(x, y, blocks)
     @x = x
     @y = y
@@ -16,7 +19,57 @@ class Grid < Vertex
     @rows[y][x] unless @rows.size()-1 < y or @rows[y].size() - 1 < x or y < 0 or x < 0
   end
 
-  def randomize
-      
+  def next_states
+
   end
+
+  def to_s
+    @rows.each do |row|
+      row.each do |col|
+	print "#{col} "
+      end
+      puts
+    end
+  end
+
+  def each
+    @rows.each do |row|
+      row.each do |col|
+	yield col
+      end
+    end
+  end
+
+  def ==(other_grid)
+    result = false
+    if other_grid.x == @x && other_grid.y == @y 
+      result = true
+      for y in 0..other_grid.y do
+        for x in 0..other_grid.x do
+           unless other_grid.block(x, y) == self.block(x, y)
+	     result = false
+	   end
+	end
+      end
+    end
+    result
+  end
+
+  def eql?(other_grid)
+    result = false
+    if other_grid.x == @x && other_grid.y == @y 
+      result = true
+      for y in 0..other_grid.y do
+        for x in 0..other_grid.x do
+           unless other_grid.block(x, y) == self.block(x, y)
+	     result = false
+	   end
+	end
+      end
+    end
+    result
+  end 
+
+  #def randomize
+  #end
 end

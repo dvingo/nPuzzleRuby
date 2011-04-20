@@ -40,16 +40,54 @@ class TestGrid < MiniTest::Unit::TestCase
     refute @grid.block(0, -1)
   end
 
-  def test_randomize
-    @grid.randomize
-    refute @grid.block(0, 0) == Block.new(1) and
-    @grid.block(1, 0) == Block.new(2) and
-    @grid.block(2, 0) == Block.new(3) and
-    @grid.block(0, 1) == Block.new(4) and
-    @grid.block(1, 1) == Block.new(5) and
-    @grid.block(2, 1) == Block.new(6) and
-    @grid.block(0, 2) == Block.new(7) and 
-    @grid.block(1, 2) == Block.new(8) and
-    @grid.block(2, 2) == Block.new(nil)
+  #def test_next_state
+  #  states = @grid.next_states
+
+  #end
+
+  def test_to_s
+    puts @grid
   end
+
+  def test_equal
+    blocks = []
+    blocks << Block.new(1)
+    blocks << Block.new(2)
+    blocks << Block.new(3)
+    blocks << Block.new(4)
+    blocks << Block.new(5)
+    blocks << Block.new(6)
+    blocks << Block.new(7)
+    blocks << Block.new(8)
+    blocks << Block.new(nil)
+    other_grid = Grid.new(3, 3, blocks)
+    blocks2 = []
+    blocks2 << Block.new(5)
+    blocks2 << Block.new(2)
+    blocks2 << Block.new(3)
+    blocks2 << Block.new(4)
+    blocks2 << Block.new(1)
+    blocks2 << Block.new(6)
+    blocks2 << Block.new(7)
+    blocks2 << Block.new(8)
+    blocks2 << Block.new(nil)
+    other_grid2 = Grid.new(3, 3, blocks2)
+    assert @grid == other_grid, "Grids are not equal when they should be."
+    assert @grid.eql?(other_grid), "Grids are not equal when they should be."
+    refute @grid == other_grid2, "Grids are equal when they are two different grids."
+    refute @grid.eql?(other_grid2), "Grids are equal when they are two different grids."
+  end
+
+  #def test_randomize
+  #  @grid.randomize
+  #  refute @grid.block(0, 0) == Block.new(1) and
+  #  @grid.block(1, 0) == Block.new(2) and
+  #  @grid.block(2, 0) == Block.new(3) and
+  #  @grid.block(0, 1) == Block.new(4) and
+  #  @grid.block(1, 1) == Block.new(5) and
+  #  @grid.block(2, 1) == Block.new(6) and
+  #  @grid.block(0, 2) == Block.new(7) and 
+  #  @grid.block(1, 2) == Block.new(8) and
+  #  @grid.block(2, 2) == Block.new(nil)
+  #end
 end
