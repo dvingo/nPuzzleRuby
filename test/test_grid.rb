@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require_relative '../lib/grid.rb'
 require_relative '../lib/block.rb'
+require_relative '../../mvGraph/lib/mvGraph.rb'
 
 class TestGrid < MiniTest::Unit::TestCase
   def setup
@@ -17,7 +18,7 @@ class TestGrid < MiniTest::Unit::TestCase
     @grid = Grid.new(3, 3, blocks)
   end
   
-  def alternate_grid
+  def setup_alternate_grid
     blocks = []
     blocks << Block.new(-1)
     blocks << Block.new(1)
@@ -94,6 +95,13 @@ class TestGrid < MiniTest::Unit::TestCase
     refute @grid.eql?(other_grid2), "Grids are equal when they are two different grids."
   end
 
+  def test_bfs_puzzle_search
+    @graph = Graph.new
+    @graph.add_vertex(@grid)
+    setup_alternate_grid
+    @graph.search(@grid, "fifo", Grid.next_states, @alternate_grid)  
+  end
+
   #def test_randomize
   #  @grid.randomize
   #  refute @grid.block(0, 0) == Block.new(1) and
@@ -112,7 +120,7 @@ class TestGrid < MiniTest::Unit::TestCase
     assert @grid.is_invalid_move?(2, 2, "right", @grid.rows), "Should be able to slide right from current position (0,0)"
     refute @grid.is_invalid_move?(2, 2, "up", @grid.rows), "Shouldn't be able to slide up from current position (0,0)"
     refute @grid.is_invalid_move?(2, 2, "left", @grid.rows), "Shouldn't be able to slide left from current position (0,0)"
-    alternate_grid
+    setup_alternate_grid
     assert @alternate_grid.is_invalid_move?(0, 0, "left", @alternate_grid.rows), "Should be able to slide left from current position (8,8)"
     assert @alternate_grid.is_invalid_move?(0, 0, "up", @alternate_grid.rows), "Should be able to slide up from current position (8,8)"
     refute @alternate_grid.is_invalid_move?(0, 0, "right", @alternate_grid.rows), "Shouldn't be able to slide right from current position (8,8)"
