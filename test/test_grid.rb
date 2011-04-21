@@ -116,6 +116,14 @@ class TestGrid < MiniTest::Unit::TestCase
     @graph.search(@grid, "fifo", :next_states, @bfs_grid)  
   end
 
+  def test_dfs_puzzle_search
+    setup_bfs_grid
+    @graph = Graph.new
+    @graph.add_vertex(@grid)
+    @graph.search(@grid, "lifo", :next_states, @bfs_grid)  
+  end
+
+
   #def test_randomize
   #  @grid.randomize
   #  refute @grid.block(0, 0) == Block.new(1) and
