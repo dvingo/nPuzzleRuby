@@ -57,7 +57,7 @@ class TestGrid < MiniTest::Unit::TestCase
   def test_next_state
     states = @grid.next_states
     states.each do |state|
-      refute state.block(2, 2) == false
+      refute state.block(2, 2) == Block.new(-1), "Grid location 2, 2 should not be -1 for each state returned from next_states."
     end
   end
 

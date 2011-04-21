@@ -21,7 +21,7 @@ class Grid < Vertex
     @rows[y][x] unless @rows.size() - 1 < y or @rows[y].size() - 1 < x or y < 0 or x < 0
   end
 
-  # get the x, y for the nil block and move all surrounding squares into it
+  # Get the x, y for the nil block and move all surrounding squares into it
   # for the next states
   def next_states
     states = []
@@ -34,34 +34,24 @@ class Grid < Vertex
   
   def slide(direction)
     x,y = @block_to_loc[Block.new(-1)]
-    puts "@rows: #{@rows}"
+    # Need to Marshal to perform a deep copy of the object
     new_rows = Marshal::load(Marshal.dump(@rows))
-    puts "new_rows: #{new_rows}"
     return_nil = true
     unless is_invalid_move?(x, y, direction, new_rows)
       return_nil = false
       case direction
       when "up"
-        puts "new_rows[y-1]: #{new_rows[y-1]}"
-        p "x: #{x}"
-        puts "new_rows[y-1][x]: #{new_rows[y-1][x]}"
         new_rows[y][x] = new_rows[y-1][x]
-        puts "new_rows up 1: #{new_rows}"
         new_rows[y-1][x] = Block.new(-1)
-        puts "new_rows up 2: #{new_rows}"
       when "down"
         new_rows[y][x] = new_rows[y+1][x]
         new_rows[y+1][x] = Block.new(-1)
       when "left"
         new_rows[y][x] = new_rows[y][x-1]
-        puts "new_rows left 1: #{new_rows}"
         new_rows[y][x-1] = Block.new(-1)
-        puts "new_rows left 2: #{new_rows}"
       when "right"
         new_rows[y][x] = new_rows[y][x+1]
-        puts "new_rows right 1: #{new_rows}"
         new_rows[y][x+1] = Block.new(-1)
-        puts "new_rows right 2: #{new_rows}"
       end
     end
     if return_nil == false
@@ -71,6 +61,9 @@ class Grid < Vertex
     end
   end
   
+  #
+  #TODO refactor with less awkward syntax
+  #
   def is_invalid_move?(x, y, direction, new_rows)
     return true if x == 0 and direction == "left"
     return true if y == 0 and direction == "up"
