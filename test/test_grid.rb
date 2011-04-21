@@ -17,6 +17,20 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(-1)
     @grid = Grid.new(3, 3, blocks)
   end
+
+  def setup_bfs_grid
+    blocks = []
+    blocks << Block.new(1)
+    blocks << Block.new(2)
+    blocks << Block.new(3)
+    blocks << Block.new(4)
+    blocks << Block.new(5)
+    blocks << Block.new(6)
+    blocks << Block.new(7)
+    blocks << Block.new(-1)
+    blocks << Block.new(8)
+    @bfs_grid = Grid.new(3, 3, blocks)
+  end
   
   def setup_alternate_grid
     blocks = []
@@ -63,7 +77,7 @@ class TestGrid < MiniTest::Unit::TestCase
   end
 
   def test_to_s
-    puts @grid
+    #puts @grid
   end
 
   def test_equal
@@ -96,10 +110,10 @@ class TestGrid < MiniTest::Unit::TestCase
   end
 
   def test_bfs_puzzle_search
+    setup_bfs_grid
     @graph = Graph.new
     @graph.add_vertex(@grid)
-    setup_alternate_grid
-    @graph.search(@grid, "fifo", Grid.next_states, @alternate_grid)  
+    @graph.search(@grid, "fifo", :next_states, @bfs_grid)  
   end
 
   #def test_randomize

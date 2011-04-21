@@ -4,6 +4,7 @@ class Grid < Vertex
   attr_reader :x, :y
   attr_reader :rows
   def initialize(x, y, blocks)
+    super(self.object_id)
     @x = x
     @y = y
     @rows = Array.new(@y) { Array.new }
@@ -23,8 +24,6 @@ class Grid < Vertex
 
   # Get the x, y for the nil block and move all surrounding squares into it
   # for the next states
-  # TODO probably should make this an instance method that takes a grid and returns
-  #      next states
   def next_states
     states = []
     for direction in ["up", "down", "left", "right"] do
@@ -32,50 +31,6 @@ class Grid < Vertex
         states << Grid.new(@x, @y, new_rows) unless new_rows.nil?
     end
     states
-  end
-
-  # Class method
-  def self.next_states
-    Proc.new do |grid|
-      states = []
-      for direction in ["up", "down", "left", "right"] do
-        new_rows = slide2(direction, grid)
-        states << Grid.new(@x, @y, new_rows) unless new_rows.nil?
-      end
-      states
-    end
-  end
-
-  def self.fill_block_to_loc
-  end
-  
-  def self.slide2(direction, grid)
-    x,y = @block_to_loc[Block.new(-1)]
-    # Marshal is needed to perform a deep copy of the object
-    new_rows = Marshal::load(Marshal.dump(grid.rows))
-    return_nil = true
-    unless is_invalid_move?(x, y, direction, new_rows)
-      return_nil = false
-      case direction
-      when "up"
-        new_rows[y][x] = new_rows[y-1][x]
-        new_rows[y-1][x] = Block.new(-1)
-      when "down"
-        new_rows[y][x] = new_rows[y+1][x]
-        new_rows[y+1][x] = Block.new(-1)
-      when "left"
-        new_rows[y][x] = new_rows[y][x-1]
-        new_rows[y][x-1] = Block.new(-1)
-      when "right"
-        new_rows[y][x] = new_rows[y][x+1]
-        new_rows[y][x+1] = Block.new(-1)
-      end
-    end
-    if return_nil == false
-      return new_rows.flatten 
-    else
-      return nil
-    end
   end
 
   def slide(direction)
