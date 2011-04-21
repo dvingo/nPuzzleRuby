@@ -65,7 +65,7 @@ class Grid < Vertex
       end
     end
     if return_nil == false
-      return new_rows 
+      return new_rows.flatten 
     else
       return nil
     end

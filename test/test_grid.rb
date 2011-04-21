@@ -128,7 +128,7 @@ class TestGrid < MiniTest::Unit::TestCase
     right = @grid.slide("right")
     
     refute_nil up, "up should not be nil."
-    assert_equal Block.new(-1), up.block(2, 1), "Should be able to slide nil up."
+    assert Block.new(-1) == up.block(2, 1), "Should be able to slide nil up."
     assert_nil down, "Should not be able to slide nil down."
     refute_nil left, "left should not be nil."
     assert_equal Block.new(-1), left.block(1, 2), "Should be able to slide nil left."
