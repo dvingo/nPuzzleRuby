@@ -123,6 +123,19 @@ class TestGrid < MiniTest::Unit::TestCase
     @graph.search(@grid, "lifo", :next_states, @bfs_grid)  
   end
 
+  def test_block_to_loc
+    assert_equal 0, @grid.block_to_loc(Block.new(1))[0], "Block 1's x location should be 0."
+    assert_equal 0, @grid.block_to_loc(Block.new(1))[1], "Block 1's y location should be 0."
+    assert_equal 1, @grid.block_to_loc(Block.new(2))[0], "Block 2's x location should be 1."
+    assert_equal 0, @grid.block_to_loc(Block.new(2))[1], "Block 2's y location should be 0."
+  end
+
+  def test_manhattan_distance
+    setup_bfs_grid 
+    setup_alternate_grid
+    assert_equal 2, @grid.manhattan_distance(@bfs_grid), "Manhattan distance of @grid and @bfs_grid should be 2."
+    assert_equal 16, @grid.manhattan_distance(@alternate_grid), "Manhattan distance of @grid and @alternate_grid should be 16."
+  end
 
   #def test_randomize
   #  @grid.randomize

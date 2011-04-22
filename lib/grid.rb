@@ -18,8 +18,14 @@ class Grid < Vertex
     end
   end
 
+  # Returns the block at location x, y.  x, y are zero indexed.
   def block(x, y)
     @rows[y][x] unless @rows.size() - 1 < y or @rows[y].size() - 1 < x or y < 0 or x < 0
+  end
+
+  # Takes a block and returns its x y location in an array.
+  def block_to_loc(block)
+    @block_to_loc[block]
   end
 
   # Get the x, y for the nil block and move all surrounding squares into it
@@ -33,8 +39,9 @@ class Grid < Vertex
     states
   end
 
+  # Moves the empty square in the direction passed, if it is a valid direction
   def slide(direction)
-    x,y = @block_to_loc[Block.new(-1)]
+    x, y = @block_to_loc[Block.new(-1)]
     # Marshal is needed to perform a deep copy of the object
     new_rows = Marshal::load(Marshal.dump(@rows))
     return_nil = true
@@ -63,6 +70,7 @@ class Grid < Vertex
   end
   
   #
+  # Performs boundary checks with passed direction
   #TODO refactor with less awkward syntax
   #
   def is_invalid_move?(x, y, direction, new_rows)
@@ -75,6 +83,18 @@ class Grid < Vertex
     return true if direction == "left" and x - 1 > 0 and new_rows[y][x-1] == Block.new(-1)
     return true if direction == "right" and x < @x - 1 and new_rows[y][x+1] == Block.new(-1)
   end
+
+  # Returns a number which is the sum of the distances of each block
+  # from its current state to its goal state.
+  def manhattan_distance(other_grid)
+    man_distance = 0
+    self.each do |block|
+      x, y = @block_to_loc[block] 
+      other_x, other_y = other_grid.block_to_loc(block)
+      man_distance += (x - other_x).abs + (y - other_y).abs
+    end
+    man_distance
+  end
   
   def to_s
     @rows.each do |row|
@@ -85,6 +105,7 @@ class Grid < Vertex
     end
   end
 
+  # Yields each block left to right top to bottom.
   def each
     @rows.each do |row|
       row.each do |col|
@@ -93,6 +114,8 @@ class Grid < Vertex
     end
   end
 
+  # Two grids are equal if they are the same size and all blocks 
+  # are equal by location.
   def ==(other_grid)
     result = false
     if other_grid.x == @x && other_grid.y == @y 
