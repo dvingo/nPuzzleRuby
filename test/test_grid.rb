@@ -178,9 +178,9 @@ class TestGrid < MiniTest::Unit::TestCase
     setup_solvable_goal_state_4x4
     @graph = Graph.new
     @graph.add_vertex(@grid_4x4)
-    puts "Start grid state: #{@grid_4x4}"
-    puts "Goal grid state: #{@solvable_goal_4x4}"
-    @graph.search(@grid_4x4, "fifo", :next_states_ordered_by_manhattan_distance, @solvable_goal_4x4)
+    assert_equal @solvable_goal_4x4, 
+                 @graph.search(@grid_4x4, "fifo", :next_states_ordered_by_manhattan_distance, @solvable_goal_4x4)[0],
+		 "The @solvable_goal_4x4 should be the solution for this search."
   end
 
   #def test_dfs_puzzle_search
@@ -202,6 +202,17 @@ class TestGrid < MiniTest::Unit::TestCase
     setup_alternate_grid
     assert_equal 2, @grid.manhattan_distance(@bfs_grid), "Manhattan distance of @grid and @bfs_grid should be 2."
     assert_equal 16, @grid.manhattan_distance(@alternate_grid), "Manhattan distance of @grid and @alternate_grid should be 16."
+  end
+
+  #Eventually loop over a range of distances and run each generator in a separate thread (in parallel)
+  def test_grid_generator
+    start_grid = @grid
+    distance = 1
+    @generated_grid = start_grid.generate_solvable_grid(distance)
+    search_result = @graph.search(@generated_grid, "fifo", :next_states_ordered_by_manhattan_distance, start_grid)
+    steps = search_result[-1]
+    assert_equal distance, steps, "The number of steps taken to solve the puzzle should be the same as the generated puzzle's distance"
+
   end
 
   def test_order_next_states_by_manhattan_distance
