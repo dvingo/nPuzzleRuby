@@ -18,6 +18,54 @@ class TestGrid < MiniTest::Unit::TestCase
     @grid = Grid.new(3, 3, blocks)
   end
 
+  def setup_4x4
+    blocks = []
+    blocks << Block.new(1)
+    blocks << Block.new(2)
+    blocks << Block.new(3)
+    blocks << Block.new(4)
+
+    blocks << Block.new(5)
+    blocks << Block.new(6)
+    blocks << Block.new(7)
+    blocks << Block.new(8)
+
+    blocks << Block.new(9)
+    blocks << Block.new(10)
+    blocks << Block.new(-1)
+    blocks << Block.new(11)
+
+    blocks << Block.new(13)
+    blocks << Block.new(14)
+    blocks << Block.new(15)
+    blocks << Block.new(12)
+    @grid_4x4 = Grid.new(4, 4, blocks)
+  end
+
+  def setup_solvable_goal_state_4x4
+    blocks = []
+    blocks << Block.new(1)
+    blocks << Block.new(2)
+    blocks << Block.new(3)
+    blocks << Block.new(4)
+
+    blocks << Block.new(5)
+    blocks << Block.new(6)
+    blocks << Block.new(7)
+    blocks << Block.new(8)
+
+    blocks << Block.new(9)
+    blocks << Block.new(10)
+    blocks << Block.new(11)
+    blocks << Block.new(12)
+
+    blocks << Block.new(13)
+    blocks << Block.new(14)
+    blocks << Block.new(15)
+    blocks << Block.new(-1)
+    @solvable_goal_4x4 = Grid.new(4, 4, blocks)
+  end
+
   def setup_bfs_grid
     blocks = []
     blocks << Block.new(1)
@@ -124,11 +172,15 @@ class TestGrid < MiniTest::Unit::TestCase
   end
 
   def test_bfs_puzzle_search
-    setup_bfs_grid
-    setup_alternate_grid
+    #setup_bfs_grid
+    #setup_alternate_grid
+    setup_4x4
+    setup_solvable_goal_state_4x4
     @graph = Graph.new
-    @graph.add_vertex(@alternate_grid)
-    @graph.search(@alternate_grid, "fifo", :next_states_ordered_by_manhattan_distance, @bfs_grid)
+    @graph.add_vertex(@grid_4x4)
+    puts "Start grid state: #{@grid_4x4}"
+    puts "Goal grid state: #{@solvable_goal_4x4}"
+    @graph.search(@grid_4x4, "fifo", :next_states_ordered_by_manhattan_distance, @solvable_goal_4x4)
   end
 
   #def test_dfs_puzzle_search

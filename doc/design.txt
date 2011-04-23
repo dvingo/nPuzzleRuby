@@ -1,2 +1,5 @@
 A program to solve the n-puzzle problem.
 see: http://en.wikipedia.org/wiki/Fifteen_puzzle
+
+
+Store the grids as a list of numbers and read them in from file or from a generation algorithm.
