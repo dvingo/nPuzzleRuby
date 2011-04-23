@@ -48,6 +48,7 @@ class Grid < Vertex
       return_array << grid_state
     end
     return_array.sort_by! { |state| state.distance }
+    return_array.reverse!
     return_array
   end
 
