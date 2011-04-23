@@ -109,19 +109,19 @@ class TestGrid < MiniTest::Unit::TestCase
     refute @grid.eql?(other_grid2), "Grids are equal when they are two different grids."
   end
 
-  def test_bfs_puzzle_search
-    setup_bfs_grid
-    @graph = Graph.new
-    @graph.add_vertex(@grid)
-    @graph.search(@grid, "fifo", :next_states, @bfs_grid)  
-  end
+  #def test_bfs_puzzle_search
+  #  setup_bfs_grid
+  #  @graph = Graph.new
+  #  @graph.add_vertex(@grid)
+  #  @graph.search(@grid, "fifo", :next_states, @bfs_grid)
+  #end
 
-  def test_dfs_puzzle_search
-    setup_bfs_grid
-    @graph = Graph.new
-    @graph.add_vertex(@grid)
-    @graph.search(@grid, "lifo", :next_states, @bfs_grid)  
-  end
+  #def test_dfs_puzzle_search
+  #  setup_bfs_grid
+  #  @graph = Graph.new
+  #  @graph.add_vertex(@grid)
+  #  @graph.search(@grid, "lifo", :next_states, @bfs_grid)  
+  #end
 
   def test_block_to_loc
     assert_equal 0, @grid.block_to_loc(Block.new(1))[0], "Block 1's x location should be 0."
@@ -137,18 +137,21 @@ class TestGrid < MiniTest::Unit::TestCase
     assert_equal 16, @grid.manhattan_distance(@alternate_grid), "Manhattan distance of @grid and @alternate_grid should be 16."
   end
 
-  #def test_randomize
-  #  @grid.randomize
-  #  refute @grid.block(0, 0) == Block.new(1) and
-  #  @grid.block(1, 0) == Block.new(2) and
-  #  @grid.block(2, 0) == Block.new(3) and
-  #  @grid.block(0, 1) == Block.new(4) and
-  #  @grid.block(1, 1) == Block.new(5) and
-  #  @grid.block(2, 1) == Block.new(6) and
-  #  @grid.block(0, 2) == Block.new(7) and 
-  #  @grid.block(1, 2) == Block.new(8) and
-  #  @grid.block(2, 2) == Block.new(nil)
-  #end
+  def test_order_next_states_by_manhattan_distance
+    #setup_bfs_grid 
+    #setup_alternate_grid
+    next_states_ordered = @grid.next_states_ordered_by_manhattan_distance
+    second_level_ordered = next_states_ordered[0].next_states_ordered_by_manhattan_distance
+    puts "grid: #{@grid}"
+    puts "next_states_ordered[0]: #{next_states_ordered[0]}"
+    puts "0.distance: #{next_states_ordered[0].distance}"
+    #puts "next_states_ordered[1]: #{@grid.manhattan_distance(next_states_ordered[1])}"
+    #puts "0.distance: #{next_states_ordered[0].distance}"
+    #puts "1.distance: #{next_states_ordered[1].distance}"
+    puts "second level[0] distance: #{second_level_ordered[0].distance}"
+    puts "second_level[0]: #{second_level_ordered[0]}"
+    assert next_states_ordered[0].distance == next_states_ordered[1].distance, "The order should be highest to lowest for the manhattan order sort."
+  end
   
   def test_is_invalid_move?
     assert @grid.is_invalid_move?(2, 2, "down", @grid.rows), "Should be able to slide down from current position (0,0)"

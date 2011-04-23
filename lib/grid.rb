@@ -1,8 +1,10 @@
 require_relative '../../mvGraph/lib/mvGraph.rb'
 class Grid < Vertex
   include Enumerable
-  attr_reader :x, :y
-  attr_reader :rows
+  include Comparable
+  attr_reader :x, :y, :rows
+  attr_accessor :distance
+
   def initialize(x, y, blocks)
     super(self.object_id)
     @x = x
@@ -37,6 +39,16 @@ class Grid < Vertex
         states << Grid.new(@x, @y, new_rows) unless new_rows.nil?
     end
     states
+  end
+
+  def next_states_ordered_by_manhattan_distance
+    return_array = []
+    next_states.each do |grid_state|
+      grid_state.distance = self.manhattan_distance(grid_state)
+      return_array << grid_state
+    end
+    return_array.sort_by! { |state| state.distance }
+    return_array
   end
 
   # Moves the empty square in the direction passed, if it is a valid direction
@@ -114,8 +126,12 @@ class Grid < Vertex
     end
   end
 
+  def <=>(other_grid)
+    self.distance <=> other_grid.distance
+  end
+
   # Two grids are equal if they are the same size and all blocks 
-  # are equal by location.
+  # are equal by location and corresponding number.
   def ==(other_grid)
     result = false
     if other_grid.x == @x && other_grid.y == @y 
@@ -131,6 +147,7 @@ class Grid < Vertex
     result
   end
 
+  # Same implementation as ==
   def eql?(other_grid)
     result = false
     if other_grid.x == @x && other_grid.y == @y 
