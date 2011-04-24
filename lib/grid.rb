@@ -41,10 +41,23 @@ class Grid < Vertex
     states
   end
 
+  def random_next_states
+    states = []
+    directions = ["up", "down", "left", "right"]
+    directions.shuffle!
+    for direction in directions do
+        new_rows = slide(direction)
+        states << Grid.new(@x, @y, new_rows) unless new_rows.nil?
+    end
+    states
+  end
+  
   def next_states_ordered_by_manhattan_distance(goal_state)
     return_array = []
     next_states.each do |grid_state|
       grid_state.distance = goal_state.manhattan_distance(grid_state)
+      # we'd want to sort on insertion instead of using sort_by
+      # return_array.add_in_sorted_order
       return_array << grid_state
     end
     return_array.sort_by! { |state| state.distance }

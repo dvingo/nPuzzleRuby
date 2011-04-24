@@ -206,13 +206,17 @@ class TestGrid < MiniTest::Unit::TestCase
 
   #Eventually loop over a range of distances and run each generator in a separate thread (in parallel)
   def test_grid_generator
-    start_grid = @grid
-    distance = 10
+    setup_4x4
+    #start_grid = @grid
+    start_grid = @grid_4x4
+    distance = 3
     @graph = Graph.new
     @graph.add_vertex(start_grid)
-    walk_result = @graph.walk_n_steps(start_grid, :next_states, distance)
+    walk_result = @graph.walk_n_steps(start_grid, :random_next_states, distance)
     graph2 = Graph.new
     graph2.add_vertex(walk_result[0])
+    puts "Start: #{walk_result[0]}"
+    puts "Goal: #{start_grid}"
     search_result = graph2.search(walk_result[0], "fifo", :next_states_ordered_by_manhattan_distance, start_grid, nil)
     path = graph2.shortest_path(walk_result[0], start_grid) 
     path.each_with_index do |p, i|
