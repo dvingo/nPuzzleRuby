@@ -207,12 +207,20 @@ class TestGrid < MiniTest::Unit::TestCase
   #Eventually loop over a range of distances and run each generator in a separate thread (in parallel)
   def test_grid_generator
     start_grid = @grid
-    distance = 1
-    @generated_grid = start_grid.generate_solvable_grid(distance)
-    search_result = @graph.search(@generated_grid, "fifo", :next_states_ordered_by_manhattan_distance, start_grid)
-    steps = search_result[-1]
+    distance = 10
+    @graph = Graph.new
+    @graph.add_vertex(start_grid)
+    walk_result = @graph.walk_n_steps(start_grid, :next_states, distance)
+    graph2 = Graph.new
+    graph2.add_vertex(walk_result[0])
+    search_result = graph2.search(walk_result[0], "fifo", :next_states_ordered_by_manhattan_distance, start_grid, nil)
+    path = graph2.shortest_path(walk_result[0], start_grid) 
+    path.each_with_index do |p, i|
+      puts "path[#{i}]: #{p}"
+    end
+    steps = path.length - 1
+    #steps = search_result[-1]
     assert_equal distance, steps, "The number of steps taken to solve the puzzle should be the same as the generated puzzle's distance"
-
   end
 
   def test_order_next_states_by_manhattan_distance
@@ -226,11 +234,6 @@ class TestGrid < MiniTest::Unit::TestCase
     refute_equal 3, @grid.manhattan_distance(second_level_ordered[0]), "Manhattan distance of this grid should not be 3."
 
     empty_middle_next_states = @empty_middle_grid.next_states_ordered_by_manhattan_distance(@grid)
-    puts "empty_middle_grid: #{@empty_middle_grid}"
-    puts "State 0 distance: #{empty_middle_next_states[0].distance}"
-    puts "State 1 distance: #{empty_middle_next_states[1].distance}"
-    puts "State 2 distance: #{empty_middle_next_states[2].distance}"
-    puts "State 3 distance: #{empty_middle_next_states[3].distance}"
     assert empty_middle_next_states[0].distance <= empty_middle_next_states[1].distance, "Distance of first returned state should be least."
     assert empty_middle_next_states[1].distance <= empty_middle_next_states[2].distance, 
       "Distance of second returned state should be less than distance of third returned state"

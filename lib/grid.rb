@@ -96,10 +96,6 @@ class Grid < Vertex
     return true if direction == "right" and x < @x - 1 and new_rows[y][x+1] == Block.new(-1)
   end
 
-  def generate_solvable_grid(distance)
-    search(self, "lifo", :next_states_ordered_by_manhattan_distance, nil, distance)
-  end
-
   # Returns a number which is the sum of the distances of each block
   # from its current state to its goal state.
   def manhattan_distance(other_grid)
