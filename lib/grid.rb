@@ -175,8 +175,4 @@ class Grid < Vertex
     end
     result
   end 
-
-  #def randomize
-  # example to generate random numbers:  10.times.map { Random.new.rand(0..10) }    
-  #end
 end
