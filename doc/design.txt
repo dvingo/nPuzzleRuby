@@ -1,5 +1,10 @@
 A program to solve the n-puzzle problem.
 see: http://en.wikipedia.org/wiki/Fifteen_puzzle
 
-
 Store the grids as a list of numbers and read them in from file or from a generation algorithm.
+
+ Todo for graphics
+ - let user move blocks around for initial condition
+ - let user move blocks around for goal condition
+ - click 'solve'
+ - produces each step of the output as a tree or just a series of steps
