@@ -121,6 +121,39 @@ class TestGrid < MiniTest::Unit::TestCase
     assert_equal @grid.block(2, 2), Block.new(-1)
   end
 
+  def test_construct_default_grid
+    grid = Grid.construct_default(3)
+    assert grid
+    assert_equal grid.block(0, 0), Block.new(1), "1"
+    assert_equal grid.block(1, 0), Block.new(2), "2"
+    assert_equal grid.block(2, 0), Block.new(3), "3"
+    assert_equal grid.block(0, 1), Block.new(4), "4"
+    assert_equal grid.block(1, 1), Block.new(5), "5"
+    assert_equal grid.block(2, 1), Block.new(6), "6"
+    assert_equal grid.block(0, 2), Block.new(7), "7"
+    assert_equal grid.block(1, 2), Block.new(8), "8"
+    assert_equal grid.block(2, 2), Block.new(-1), "9"
+
+    grid = Grid.construct_default(4)
+    assert grid
+    assert_equal grid.block(0, 0), Block.new(1), "1a"
+    assert_equal grid.block(1, 0), Block.new(2), "2a"
+    assert_equal grid.block(2, 0), Block.new(3), "3a"
+    assert_equal grid.block(3, 0), Block.new(4), "4a"
+    assert_equal grid.block(0, 1), Block.new(5), "55"
+    assert_equal grid.block(1, 1), Block.new(6), "66"
+    assert_equal grid.block(2, 1), Block.new(7), "77"
+    assert_equal grid.block(3, 1), Block.new(8), "88"
+    assert_equal grid.block(0, 2), Block.new(9), "99"
+    assert_equal grid.block(1, 2), Block.new(10), "10"
+    assert_equal grid.block(2, 2), Block.new(11), "11"
+    assert_equal grid.block(3, 2), Block.new(12), "12"
+    assert_equal grid.block(0, 3), Block.new(13), "123"
+    assert_equal grid.block(1, 3), Block.new(14), "14"
+    assert_equal grid.block(2, 3), Block.new(15), "15"
+    assert_equal grid.block(3, 3), Block.new(-1), "16"
+  end
+
   def test_out_of_bounds_block
     refute @grid.block(100, 100)
     refute @grid.block(0, 100)

@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require 'sdl'
 require_relative '../lib/grid.rb'
 require_relative '../lib/block.rb'
@@ -24,16 +25,27 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
 SDL.init(SDL::INIT_VIDEO)
 SDL::TTF.init
-font = SDL::TTF.open('/usr/share/fonts/truetype/DroidSansMono.ttf', 32, 0)
+font = SDL::TTF.open('LiberationMono-Regular.ttf', 32, 0)
 client_info = SDL::Screen.info
 bpp = client_info.bpp
 screen = SDL::Screen.open(SCREEN_WIDTH, SCREEN_HEIGHT, bpp, SDL::SWSURFACE)
 SDL::WM.set_caption("N-Puzzle Solver", "")
-image = SDL::Surface.load("../images/blockWhite.png")
-puts "font.size_text: #{font.text_size('4')}"
-puts "font.height: #{font.height}"
-SDL.blit_surface(image, 0, 0, 0, 0, screen, 100, 10)
-font.draw_solid_utf8(screen, '4;aldskjfa;lskjf', 105, 10, 60, 50, 60)
+grid_size = 3
+grid_blocks = Grid.construct_default(grid_size)
+grid = Grid.new(grid_size, grid_size, grid_blocks)
+
+image_loc = grid.get_image_loc
+image = SDL::Surface.load(image_loc)
+arrangement = grid.arrange(image.w, image.h)
+
+arrangement.each do |block|
+  #puts "x: #{block[:x]} y: #{block[:y]}"
+  SDL.blit_surface(image, 0, 0, 0, 0, screen, block[:x], block[:y])
+  font.draw_solid_utf8(screen, block[:description][:number].to_s, block[:x], block[:y], 60, 50, 60)
+end
+
+#SDL.blit_surface(@@image, 0, 0, 0, 0, dest, @x, @y)
+
 screen.flip
 while true
   while event = SDL::Event.poll
@@ -44,11 +56,11 @@ while true
     when SDL::Event::MouseMotion
       x = event.x
       y = event.y
-      puts "x: #{x}, y: #{y}"
+      #puts "x: #{x}, y: #{y}"
     when SDL::Event::MouseButtonDown
       x = event.x
       y = event.y
-      puts "x: #{x}, y: #{y}"
+      #puts "x: #{x}, y: #{y}"
     end
   end
 

@@ -20,6 +20,17 @@ class Grid < Vertex
     end
   end
 
+  # Creates a 3x3 or 4x4 grid in left to right top to bottom 
+  # numerical order
+  def self.construct_default(size)
+    blocks = []
+    for i in 1..(size**2 - 1) do
+      blocks << Block.new(i)
+    end
+    blocks << Block.new(-1)
+    blocks
+  end
+
   # Returns the block at location x, y.  x, y are zero indexed.
   def block(x, y)
     @rows[y][x] unless @rows.size() - 1 < y or @rows[y].size() - 1 < x or y < 0 or x < 0
@@ -175,4 +186,24 @@ class Grid < Vertex
     end
     result
   end 
+
+  def get_image_loc
+    Block.image_loc
+  end
+
+  def arrange(width, height)
+    ret_values = Array.new
+    @rows.each_with_index do |row, y|
+      row.each_with_index do |local_block, x|
+        the_x = (x + 1) * width
+        the_y = (y + 1) * height
+        block_hash = Hash.new
+        block_hash[:description] = local_block.describe
+        block_hash[:x] = the_x
+        block_hash[:y] = the_y
+        ret_values << block_hash
+      end
+    end
+    ret_values
+  end
 end
