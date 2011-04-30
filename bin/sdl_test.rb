@@ -32,6 +32,20 @@ def draw_grid(grid, dest, font)
   end
 end
 
+def generate_random_start_grid(grid_size, steps)
+  start_grid_blocks = Grid.construct_default(grid_size)
+  start_grid = Grid.new(grid_size, grid_size, start_grid_blocks)
+  start_graph = Graph.new
+  start_graph.add_vertex(start_grid)
+  walk_result = start_graph.walk_n_steps(start_grid, :random_next_states, steps)
+  walk_result[0]
+end
+
+def make_start_grid(grid_size)
+  start_grid_blocks = Grid.construct_default(grid_size)
+  start_grid = Grid.new(grid_size, grid_size, start_grid_blocks)
+end
+
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
 SDL.init(SDL::INIT_VIDEO)
@@ -41,20 +55,33 @@ client_info = SDL::Screen.info
 bpp = client_info.bpp
 screen = SDL::Screen.open(SCREEN_WIDTH, SCREEN_HEIGHT, bpp, SDL::SWSURFACE)
 SDL::WM.set_caption("N-Puzzle Solver", "")
-grid_size = 3
-grid_blocks = Grid.construct_default(grid_size)
-grid = Grid.new(grid_size, grid_size, grid_blocks)
-graph = Graph.new
-graph.add_vertex(grid)
-last_step = [grid, 0]
-for i in 0..10 do
-  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
-  draw_grid(walk_result[0], screen, font)
-  screen.flip
-  sleep 2
-  last_step = walk_result
-end
 
+goal_grid = make_start_grid(4)
+start_grid = generate_random_start_grid(4, 3)
+new_graph = Graph.new
+new_graph.add_vertex(start_grid)
+puts "start_grid: #{start_grid}"
+new_graph.search(start_grid, "fifo", :next_states_ordered_by_manhattan_distance, goal_grid, nil)
+
+solved_path = new_graph.shortest_path(start_grid, goal_grid)
+puts "got here 6"
+solved_path.each do |step|
+  #puts "step: #{step}"
+  #draw_grid(step, screen, font)
+  #screen.flip
+  #sleep 2
+end
+#grid = Grid.new(grid_size, grid_size, goal_grid_blocks)
+#graph = Graph.new
+#graph.add_vertex(grid)
+#last_step = [grid, 0]
+#for i in 0..10 do
+#  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
+#  draw_grid(walk_result[0], screen, font)
+#  screen.flip
+#  sleep 2
+#  last_step = walk_result
+#end
 
 while true
   while event = SDL::Event.poll

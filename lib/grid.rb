@@ -33,7 +33,7 @@ class Grid < Vertex
 
   # Returns the block at location x, y.  x, y are zero indexed.
   def block(x, y)
-    @rows[y][x] unless @rows.size() - 1 < y or @rows[y].size() - 1 < x or y < 0 or x < 0
+    @rows[y][x] unless y >= @y or x >= @x or y < 0 or x < 0
   end
 
   # Takes a block and returns its x y location in an array.
