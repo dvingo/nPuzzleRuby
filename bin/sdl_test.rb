@@ -21,6 +21,17 @@ def draw_block(block, dest, font, x, y)
   font.draw_solid(dest, block.number, x, y, 255, 0, 0)
 end
 
+def draw_grid(grid, dest, font)
+  image_loc = grid.get_image_loc
+  image = SDL::Surface.load(image_loc)
+  arrangement = grid.arrange(image.w, image.h)
+
+  arrangement.each do |block|
+    SDL.blit_surface(image, 0, 0, 0, 0, dest, block[:x], block[:y])
+    font.draw_solid_utf8(dest, block[:description][:number].to_s, block[:x], block[:y], 60, 50, 60)
+  end
+end
+
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
 SDL.init(SDL::INIT_VIDEO)
@@ -33,20 +44,18 @@ SDL::WM.set_caption("N-Puzzle Solver", "")
 grid_size = 3
 grid_blocks = Grid.construct_default(grid_size)
 grid = Grid.new(grid_size, grid_size, grid_blocks)
-
-image_loc = grid.get_image_loc
-image = SDL::Surface.load(image_loc)
-arrangement = grid.arrange(image.w, image.h)
-
-arrangement.each do |block|
-  #puts "x: #{block[:x]} y: #{block[:y]}"
-  SDL.blit_surface(image, 0, 0, 0, 0, screen, block[:x], block[:y])
-  font.draw_solid_utf8(screen, block[:description][:number].to_s, block[:x], block[:y], 60, 50, 60)
+graph = Graph.new
+graph.add_vertex(grid)
+last_step = [grid, 0]
+for i in 0..10 do
+  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
+  draw_grid(walk_result[0], screen, font)
+  screen.flip
+  sleep 2
+  last_step = walk_result
 end
 
-#SDL.blit_surface(@@image, 0, 0, 0, 0, dest, @x, @y)
 
-screen.flip
 while true
   while event = SDL::Event.poll
     case event
