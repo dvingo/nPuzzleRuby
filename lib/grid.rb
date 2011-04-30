@@ -2,7 +2,7 @@ require_relative '../../mvGraph/lib/mvGraph.rb'
 class Grid < Vertex
   include Enumerable
   include Comparable
-  attr_reader :x, :y, :rows
+  attr_reader :x, :y, :rows, :id
   attr_accessor :distance
 
   def initialize(x, y, blocks)
@@ -11,12 +11,18 @@ class Grid < Vertex
     @y = y
     @rows = Array.new(@y) { Array.new }
     k = 0
+    @id = ""
     @block_to_loc = Hash.new
     blocks.each_with_index do |block, i|
       # increment y (k) if x (i) is at the end of the row
       k += 1 if i % @x == 0 and i != 0 
       @rows[k] << block 
       @block_to_loc[block] = [i % @x, k]
+      if block.number < 10
+        @id += "0" + block.number + (i % @x) + k
+      else
+      	@id += block.number + (i % @x) + k
+      end
     end
   end
 
@@ -33,7 +39,9 @@ class Grid < Vertex
 
   # Returns the block at location x, y.  x, y are zero indexed.
   def block(x, y)
+    start_t = Time.now
     @rows[y][x] unless y >= @y or x >= @x or y < 0 or x < 0
+    print "block: #{Time.now - start_t}"
   end
 
   # Takes a block and returns its x y location in an array.
@@ -75,6 +83,14 @@ class Grid < Vertex
     return_array
   end
 
+  def get_block_identifier(number, x, y)
+    if first_num < 10
+      first_num = "0" + first_num
+    end
+    first_num += y-1
+    first_num += x
+    return first_num
+  end
   # Moves the empty square in the direction passed, if it is a valid direction
   def slide(direction)
     x, y = @block_to_loc[Block.new(-1)]
@@ -85,15 +101,63 @@ class Grid < Vertex
       return_nil = false
       case direction
       when "up"
-        new_rows[y][x] = new_rows[y-1][x]
+        new_num = @rows[y-1][x].number + ""
+	the_identifier = get_block_identifier(new_num, x, y-1)
+	other_identifier = get_block_identifier(self.number, x, y)
+	the_index = @id.index(the_identifier)
+	other_index = @id.index(other_identifier)
+	if the_index < other_index
+          new_rows.id = new_rows.id.sub(other_index, the_index)
+	  new_rows.id = new_rows.id.sub(the_index, other_index)
+	else
+          new_rows.id = new_rows.id.sub(the_index, other_index)
+	  new_rows.id = new_rows.id.sub(other_index, the_index)
+	end
+	new_rows[y][x] = new_rows[y-1][x]
         new_rows[y-1][x] = Block.new(-1)
       when "down"
-        new_rows[y][x] = new_rows[y+1][x]
+        new_num = @rows[y+1][x].number + ""
+        the_identifier = get_block_identifier(new_num, x, y-1)
+	other_identifier = get_block_identifier(self.number, x, y)
+	the_index = @id.index(the_identifier)
+	other_index = @id.index(other_identifier)
+	if the_index < other_index
+          new_rows.id = new_rows.id.sub(other_index, the_index)
+	  new_rows.id = new_rows.id.sub(the_index, other_index)
+	else
+          new_rows.id = new_rows.id.sub(the_index, other_index)
+	  new_rows.id = new_rows.id.sub(other_index, the_index)
+	end
+	new_rows[y][x] = new_rows[y+1][x]
         new_rows[y+1][x] = Block.new(-1)
       when "left"
-        new_rows[y][x] = new_rows[y][x-1]
+        new_num = @rows[y][x-1].number + ""
+        the_identifier = get_block_identifier(new_num, x, y-1)
+	other_identifier = get_block_identifier(self.number, x, y)
+	the_index = @id.index(the_identifier)
+	other_index = @id.index(other_identifier)
+	if the_index < other_index
+          new_rows.id = new_rows.id.sub(other_index, the_index)
+	  new_rows.id = new_rows.id.sub(the_index, other_index)
+	else
+          new_rows.id = new_rows.id.sub(the_index, other_index)
+	  new_rows.id = new_rows.id.sub(other_index, the_index)
+	end
+	new_rows[y][x] = new_rows[y][x-1]
         new_rows[y][x-1] = Block.new(-1)
       when "right"
+        new_num = @rows[y][x+1].number + ""
+	the_identifier = get_block_identifier(new_num, x, y-1)
+	other_identifier = get_block_identifier(self.number, x, y)
+	the_index = @id.index(the_identifier)
+	other_index = @id.index(other_identifier)
+	if the_index < other_index
+          new_rows.id = new_rows.id.sub(other_index, the_index)
+	  new_rows.id = new_rows.id.sub(the_index, other_index)
+	else
+          new_rows.id = new_rows.id.sub(the_index, other_index)
+	  new_rows.id = new_rows.id.sub(other_index, the_index)
+	end
         new_rows[y][x] = new_rows[y][x+1]
         new_rows[y][x+1] = Block.new(-1)
       end
@@ -157,34 +221,39 @@ class Grid < Vertex
   # Two grids are equal if they are the same size and all blocks 
   # are equal by location and corresponding number.
   def ==(other_grid)
-    result = false
-    if other_grid.x == @x && other_grid.y == @y 
-      result = true
-      for y in 0...other_grid.y do
-        for x in 0...other_grid.x do
-           unless other_grid.block(x, y) == self.block(x, y)
-	     result = false
-	   end
-	end
-      end
-    end
-    result
+    return @id == other_grid.id
+    #result = false
+    #if other_grid.x == @x && other_grid.y == @y 
+    #  result = true
+    #  for y in 0...other_grid.y do
+    #    for x in 0...other_grid.x do
+    #       unless other_grid.block(x, y) == self.block(x, y)
+   # 	     result = false
+   #      break
+   # 	   end
+   # 	end
+   #   end
+   # end
+   # result
   end
 
   # Same implementation as ==
   def eql?(other_grid)
-    result = false
-    if other_grid.x == @x && other_grid.y == @y 
-      result = true
-      for y in 0...other_grid.y do
-        for x in 0...other_grid.x do
-           unless other_grid.block(x, y) == self.block(x, y)
-	     result = false
-	   end
-	end
-      end
-    end
-    result
+    return @id == other_grid.id
+    #return @id == other_grid.id
+    #result = false
+    #if other_grid.x == @x && other_grid.y == @y 
+    #  result = true
+    #  for y in 0...other_grid.y do
+    #    for x in 0...other_grid.x do
+    #       unless other_grid.block(x, y) == self.block(x, y)
+#	     result = false
+#	     break
+#	   end
+#	end
+#      end
+#    end
+#    result
   end 
 
   def get_image_loc

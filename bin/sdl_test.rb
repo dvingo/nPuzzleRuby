@@ -61,7 +61,7 @@ start_grid = generate_random_start_grid(4, 3)
 new_graph = Graph.new
 new_graph.add_vertex(start_grid)
 puts "start_grid: #{start_grid}"
-new_graph.search(start_grid, "fifo", :next_states_ordered_by_manhattan_distance, goal_grid, nil)
+new_graph.search(start_grid, "lifo", :next_states_ordered_by_manhattan_distance, goal_grid, nil)
 
 solved_path = new_graph.shortest_path(start_grid, goal_grid)
 puts "got here 6"
