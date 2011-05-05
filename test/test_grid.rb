@@ -14,7 +14,7 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(6)
     blocks << Block.new(7)
     blocks << Block.new(8)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     @grid = Grid.new(3, 3, blocks)
   end
 
@@ -32,7 +32,7 @@ class TestGrid < MiniTest::Unit::TestCase
 
     blocks << Block.new(9)
     blocks << Block.new(10)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     blocks << Block.new(11)
 
     blocks << Block.new(13)
@@ -62,7 +62,7 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(13)
     blocks << Block.new(14)
     blocks << Block.new(15)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     @solvable_goal_4x4 = Grid.new(4, 4, blocks)
   end
 
@@ -75,14 +75,14 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(5)
     blocks << Block.new(6)
     blocks << Block.new(7)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     blocks << Block.new(8)
     @bfs_grid = Grid.new(3, 3, blocks)
   end
   
   def setup_alternate_grid
     blocks = []
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     blocks << Block.new(1)
     blocks << Block.new(2)
     blocks << Block.new(3)
@@ -100,7 +100,7 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(8)
     blocks << Block.new(7)
     blocks << Block.new(5)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     blocks << Block.new(3)
     blocks << Block.new(2)
     blocks << Block.new(4)
@@ -118,7 +118,7 @@ class TestGrid < MiniTest::Unit::TestCase
     assert_equal @grid.block(2, 1), Block.new(6)
     assert_equal @grid.block(0, 2), Block.new(7)
     assert_equal @grid.block(1, 2), Block.new(8)
-    assert_equal @grid.block(2, 2), Block.new(-1)
+    assert_equal @grid.block(2, 2), Block.new(0)
   end
 
   def test_construct_default_grid
@@ -132,7 +132,7 @@ class TestGrid < MiniTest::Unit::TestCase
     #assert_equal grid.block(2, 1), Block.new(6), "6"
     #assert_equal grid.block(0, 2), Block.new(7), "7"
     #assert_equal grid.block(1, 2), Block.new(8), "8"
-    #assert_equal grid.block(2, 2), Block.new(-1), "9"
+    #assert_equal grid.block(2, 2), Block.new(0), "9"
 
     #grid = Grid.construct_default(4)
     #assert grid
@@ -151,7 +151,7 @@ class TestGrid < MiniTest::Unit::TestCase
     #assert_equal grid.block(0, 3), Block.new(13), "123"
     #assert_equal grid.block(1, 3), Block.new(14), "14"
     #assert_equal grid.block(2, 3), Block.new(15), "15"
-    #assert_equal grid.block(3, 3), Block.new(-1), "16"
+    #assert_equal grid.block(3, 3), Block.new(0), "16"
   end
 
   def test_out_of_bounds_block
@@ -167,7 +167,7 @@ class TestGrid < MiniTest::Unit::TestCase
   def test_next_state
     states = @grid.next_states
     states.each do |state|
-      refute state.block(2, 2) == Block.new(-1), "Grid location 2, 2 should not be -1 for each state returned from next_states."
+      refute state.block(2, 2) == Block.new(0), "Grid location 2, 2 should not be 0 for each state returned from next_states."
     end
   end
 
@@ -185,7 +185,7 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks << Block.new(6)
     blocks << Block.new(7)
     blocks << Block.new(8)
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     other_grid = Grid.new(3, 3, blocks)
     blocks2 = []
     blocks2 << Block.new(5)
@@ -196,7 +196,7 @@ class TestGrid < MiniTest::Unit::TestCase
     blocks2 << Block.new(6)
     blocks2 << Block.new(7)
     blocks2 << Block.new(8)
-    blocks2 << Block.new(-1)
+    blocks2 << Block.new(0)
     other_grid2 = Grid.new(3, 3, blocks2)
     assert @grid == other_grid, "Grids are not equal when they should be."
     assert @grid.eql?(other_grid), "Grids are not equal when they should be."
@@ -289,7 +289,7 @@ class TestGrid < MiniTest::Unit::TestCase
     refute @alternate_grid.is_invalid_move?(0, 0, "right", @alternate_grid.rows), "Shouldn't be able to slide right from current position (8,8)"
     refute @alternate_grid.is_invalid_move?(0, 0, "down", @alternate_grid.rows), "Shouldn't be able to slide down from current position (8,8)"
   end
-  
+
   def test_slide
     temp = @grid.slide("up")
     up = Grid.new(3, 3, temp)
@@ -299,10 +299,10 @@ class TestGrid < MiniTest::Unit::TestCase
     right = @grid.slide("right")
     
     refute_nil up, "up should not be nil."
-    assert Block.new(-1) == up.block(2, 1), "Should be able to slide nil up."
+    assert Block.new(0) == up.block(2, 1), "Should be able to slide nil up."
     assert_nil down, "Should not be able to slide nil down."
     refute_nil left, "left should not be nil."
-    assert_equal Block.new(-1), left.block(1, 2), "Should be able to slide nil left."
+    assert_equal Block.new(0), left.block(1, 2), "Should be able to slide nil left."
     assert_nil right, "Should not be able to slide nil right."
   end
 end

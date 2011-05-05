@@ -11,17 +11,23 @@ class Grid < Vertex
     @y = y
     @rows = Array.new(@y) { Array.new }
     k = 0
+    # A grid's Id is a string comprised of each block's number (zero padded),
+    # plus the x and y location of that block, this way we can quickly determine equality
+    # by comparing strings instead of all the blocks in the grid.
     @id = ""
     @block_to_loc = Hash.new
     blocks.each_with_index do |block, i|
       # increment y (k) if x (i) is at the end of the row
       k += 1 if i % @x == 0 and i != 0 
+      block.x = i % @x
+      block.y = k
       @rows[k] << block 
+      puts "block id: #{block.id}"
       @block_to_loc[block] = [i % @x, k]
       if block.number < 10
-        @id += "0" + block.number + (i % @x) + k
+        @id += "0" + block.number.to_s + (i % @x).to_s + k.to_s
       else
-      	@id += block.number + (i % @x) + k
+      	@id += block.number.to_s + (i % @x).to_s + k.to_s
       end
     end
   end
@@ -33,15 +39,13 @@ class Grid < Vertex
     for i in 1..(size**2 - 1) do
       blocks << Block.new(i)
     end
-    blocks << Block.new(-1)
+    blocks << Block.new(0)
     blocks
   end
 
   # Returns the block at location x, y.  x, y are zero indexed.
   def block(x, y)
-    start_t = Time.now
     @rows[y][x] unless y >= @y or x >= @x or y < 0 or x < 0
-    print "block: #{Time.now - start_t}"
   end
 
   # Takes a block and returns its x y location in an array.
@@ -83,84 +87,71 @@ class Grid < Vertex
     return_array
   end
 
-  def get_block_identifier(number, x, y)
-    if first_num < 10
-      first_num = "0" + first_num
+  # swaps the block at x, y with the block next to it in the direction indicated
+  # changes the values in place in the 2d array rows 
+  def swap_blocks(x, y, direction, rows)
+    case direction
+    when "up"
+      rows[y][x] = rows[y-1][x]
+      rows[y][x].x = x
+      rows[y][x].y = y
+      rows[y-1][x] = Block.new(0)
+      rows[y-1][x].x = x 
+      rows[y-1][x].y = y-1
+    when "down"
+      rows[y][x] = rows[y+1][x]
+      rows[y][x].x = x
+      rows[y][x].y = y
+      rows[y+1][x] = Block.new(0)
+      rows[y+1][x].x = x 
+      rows[y+1][x].y = y+1
+    when "left"
+      rows[y][x] = rows[y][x-1]
+      rows[y][x].x = x
+      rows[y][x].y = y
+      rows[y][x-1] = Block.new(0)
+      rows[y][x-1].x = x-1 
+      rows[y][x-1].y = y
+    when "right"
+      rows[y][x] = rows[y][x+1]
+      rows[y][x].x = x
+      rows[y][x].y = y
+      rows[y][x+1] = Block.new(0)
+      rows[y][x+1].x = x+1 
+      rows[y][x+1].y = y
     end
-    first_num += y-1
-    first_num += x
-    return first_num
   end
+
   # Moves the empty square in the direction passed, if it is a valid direction
   def slide(direction)
-    x, y = @block_to_loc[Block.new(-1)]
+    x, y = @block_to_loc[Block.new(0)]
     # Marshal is needed to perform a deep copy of the object
     new_rows = Marshal::load(Marshal.dump(@rows))
     return_nil = true
     unless is_invalid_move?(x, y, direction, new_rows)
       return_nil = false
+      block_id = block(x, y).id
+      block_index = @id.index(block_id)
       case direction
       when "up"
-        new_num = @rows[y-1][x].number + ""
-	the_identifier = get_block_identifier(new_num, x, y-1)
-	other_identifier = get_block_identifier(self.number, x, y)
-	the_index = @id.index(the_identifier)
-	other_index = @id.index(other_identifier)
-	if the_index < other_index
-          new_rows.id = new_rows.id.sub(other_index, the_index)
-	  new_rows.id = new_rows.id.sub(the_index, other_index)
-	else
-          new_rows.id = new_rows.id.sub(the_index, other_index)
-	  new_rows.id = new_rows.id.sub(other_index, the_index)
-	end
-	new_rows[y][x] = new_rows[y-1][x]
-        new_rows[y-1][x] = Block.new(-1)
+	other_block_id = block(x, y-1).id
       when "down"
-        new_num = @rows[y+1][x].number + ""
-        the_identifier = get_block_identifier(new_num, x, y-1)
-	other_identifier = get_block_identifier(self.number, x, y)
-	the_index = @id.index(the_identifier)
-	other_index = @id.index(other_identifier)
-	if the_index < other_index
-          new_rows.id = new_rows.id.sub(other_index, the_index)
-	  new_rows.id = new_rows.id.sub(the_index, other_index)
-	else
-          new_rows.id = new_rows.id.sub(the_index, other_index)
-	  new_rows.id = new_rows.id.sub(other_index, the_index)
-	end
-	new_rows[y][x] = new_rows[y+1][x]
-        new_rows[y+1][x] = Block.new(-1)
+	other_block_id = block(x, y+1).id
       when "left"
-        new_num = @rows[y][x-1].number + ""
-        the_identifier = get_block_identifier(new_num, x, y-1)
-	other_identifier = get_block_identifier(self.number, x, y)
-	the_index = @id.index(the_identifier)
-	other_index = @id.index(other_identifier)
-	if the_index < other_index
-          new_rows.id = new_rows.id.sub(other_index, the_index)
-	  new_rows.id = new_rows.id.sub(the_index, other_index)
-	else
-          new_rows.id = new_rows.id.sub(the_index, other_index)
-	  new_rows.id = new_rows.id.sub(other_index, the_index)
-	end
-	new_rows[y][x] = new_rows[y][x-1]
-        new_rows[y][x-1] = Block.new(-1)
+	other_block_id = block(x-1, y).id
       when "right"
-        new_num = @rows[y][x+1].number + ""
-	the_identifier = get_block_identifier(new_num, x, y-1)
-	other_identifier = get_block_identifier(self.number, x, y)
-	the_index = @id.index(the_identifier)
-	other_index = @id.index(other_identifier)
-	if the_index < other_index
-          new_rows.id = new_rows.id.sub(other_index, the_index)
-	  new_rows.id = new_rows.id.sub(the_index, other_index)
-	else
-          new_rows.id = new_rows.id.sub(the_index, other_index)
-	  new_rows.id = new_rows.id.sub(other_index, the_index)
-	end
-        new_rows[y][x] = new_rows[y][x+1]
-        new_rows[y][x+1] = Block.new(-1)
+	other_block_id = block(x+1, y).id
       end
+      other_block_index = @id.index(other_block_id) 
+      # if block_index is first copy other_block's id first so we can still overwrite current_block's id after
+      if block_index < other_block_index
+	@id.sub!(other_block_id, block_id)
+	@id.sub!(block_id, other_block_id)
+      else
+	@id.sub!(block_id, other_block_id)
+	@id.sub!(other_block_id, block_id)
+      end
+      swap_blocks(x, y, direction, new_rows)
     end
     if return_nil == false
       return new_rows.flatten 
@@ -178,10 +169,10 @@ class Grid < Vertex
     return true if y == 0 and direction == "up"
     return true if x == @x - 1 and direction == "right"
     return true if y == @y - 1 and direction == "down"
-    return true if direction == "up" and y - 1 > 0 and new_rows[y-1][x] == Block.new(-1)
-    return true if direction == "down" and y < @y - 1 and new_rows[y+1][x] == Block.new(-1)
-    return true if direction == "left" and x - 1 > 0 and new_rows[y][x-1] == Block.new(-1)
-    return true if direction == "right" and x < @x - 1 and new_rows[y][x+1] == Block.new(-1)
+    return true if direction == "up" and y - 1 > 0 and new_rows[y-1][x] == Block.new(0)
+    return true if direction == "down" and y < @y - 1 and new_rows[y+1][x] == Block.new(0)
+    return true if direction == "left" and x - 1 > 0 and new_rows[y][x-1] == Block.new(0)
+    return true if direction == "right" and x < @x - 1 and new_rows[y][x+1] == Block.new(0)
   end
 
   # Returns a number which is the sum of the distances of each block
