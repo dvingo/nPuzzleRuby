@@ -1,4 +1,4 @@
-require_relative '../../mvGraph/lib/mvGraph.rb'
+require_relative '../../graphMatrix/lib/mvGraph.rb'
 class Grid < Vertex
   include Enumerable
   include Comparable
@@ -22,7 +22,6 @@ class Grid < Vertex
       block.x = i % @x
       block.y = k
       @rows[k] << block 
-      puts "block id: #{block.id}"
       @block_to_loc[block] = [i % @x, k]
       if block.number < 10
         @id += "0" + block.number.to_s + (i % @x).to_s + k.to_s
@@ -143,6 +142,15 @@ class Grid < Vertex
 	other_block_id = block(x+1, y).id
       end
       other_block_index = @id.index(other_block_id) 
+      if other_block_index.nil?
+	puts "block(#{x}, #{y}): #{block(x, y)}"
+	puts "block(#{x+1}, #{y}): #{block(x+1, y)}"
+	puts "@rows: #{@rows}"
+	puts "direction: #{direction}"
+        puts "block_id #{block_id}"
+	puts "other_block_id: #{other_block_id}"
+	puts "@id: #{@id}"
+      end
       # if block_index is first copy other_block's id first so we can still overwrite current_block's id after
       if block_index < other_block_index
 	@id.sub!(other_block_id, block_id)

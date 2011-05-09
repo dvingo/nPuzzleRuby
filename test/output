@@ -1,0 +1,279 @@
+Loaded suite test_grid
+Started
+....other_block_index: 20
+other_block_index: 28
+..other_block_index: 20
+other_block_index: 28
+other_block_index: 8
+other_block_index: 32
+other_block_index: 16
+other_block_index: 4
+other_block_index: 28
+other_block_index: 12
+other_block_index: 20
+..other_block_index: 24
+other_block_index: 56
+other_block_index: 36
+other_block_index: 44
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+..1 2 3 4 
+5 6 7 8 
+9 10 0 11 
+13 14 15 12 
+start_state: #<Grid:0x8054cec>
+1 2 3 4 
+5 6 7 8 
+9 10 0 11 
+13 14 15 12 
+get_graph_vertex(current_vertex) #<Grid:0x8054cec>
+neighbor_func: random_next_states
+other_block_index: 24
+other_block_index: 36
+other_block_index: 56
+other_block_index: 44
+1 2 3 4 
+5 6 7 8 
+9 10 11 0 
+13 14 15 12 
+get_graph_vertex(current_vertex) #<Grid:0x8187f60>
+neighbor_func: random_next_states
+other_block_index: 40
+other_block_index: 60
+other_block_index: 28
+1 2 3 4 
+5 6 7 0 
+9 10 11 8 
+13 14 15 12 
+get_graph_vertex(current_vertex) #<Grid:0x8266760>
+neighbor_func: random_next_states
+other_block_index: 12
+other_block_index: 24
+other_block_index: 44
+1 2 3 0 
+5 6 7 4 
+9 10 11 8 
+13 14 15 12 
+Start: #<Grid:0x825f4b0>
+1 2 3 4 
+5 6 7 8 
+9 10 0 11 
+13 14 15 12 
+Goal: #<Grid:0x8054cec>
+other_block_index: 28
+other_block_index: 8
+other_block_index: 12
+other_block_index: 44
+other_block_index: 24
+other_block_index: 24
+other_block_index: 4
+other_block_index: 12
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 28
+other_block_index: 8
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 20
+other_block_index: 0
+other_block_index: 8
+other_block_index: 24
+other_block_index: 56
+other_block_index: 36
+other_block_index: 44
+other_block_index: 44
+other_block_index: 56
+other_block_index: 12
+other_block_index: 44
+other_block_index: 24
+other_block_index: 24
+other_block_index: 56
+other_block_index: 36
+other_block_index: 44
+other_block_index: 4
+other_block_index: 36
+other_block_index: 16
+other_block_index: 24
+other_block_index: 24
+other_block_index: 4
+other_block_index: 12
+other_block_index: 24
+other_block_index: 4
+other_block_index: 12
+other_block_index: 24
+other_block_index: 56
+other_block_index: 36
+other_block_index: 44
+other_block_index: 4
+other_block_index: 36
+other_block_index: 16
+other_block_index: 24
+other_block_index: 12
+other_block_index: 44
+other_block_index: 24
+other_block_index: 4
+other_block_index: 36
+other_block_index: 16
+other_block_index: 24
+other_block_index: 16
+other_block_index: 4
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 40
+other_block_index: 52
+other_block_index: 60
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+other_block_index: 40
+other_block_index: 52
+other_block_index: 60
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 28
+other_block_index: 8
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 40
+other_block_index: 52
+other_block_index: 60
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 0
+other_block_index: 32
+other_block_index: 20
+other_block_index: 20
+other_block_index: 0
+other_block_index: 8
+other_block_index: 20
+other_block_index: 0
+other_block_index: 8
+other_block_index: 28
+other_block_index: 8
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 20
+other_block_index: 0
+other_block_index: 8
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 40
+other_block_index: 52
+other_block_index: 60
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 0
+other_block_index: 32
+other_block_index: 20
+other_block_index: 20
+other_block_index: 0
+other_block_index: 8
+other_block_index: 28
+other_block_index: 60
+other_block_index: 40
+other_block_index: 28
+other_block_index: 8
+other_block_index: 20
+other_block_index: 52
+other_block_index: 32
+other_block_index: 40
+other_block_index: 8
+other_block_index: 40
+other_block_index: 20
+other_block_index: 28
+other_block_index: 0
+other_block_index: 32
+other_block_index: 20
+other_block_index: 0
+other_block_index: 32
+other_block_index: 20
+other_block_index: 24
+other_block_index: 56
+other_block_index: 36
+other_block_index: 44
+other_block_index: 4
+other_block_index: 36
+other_block_index: 16
+other_block_index: 24
+other_block_index: 24
+other_block_index: 4
+other_block_index: 12
+other_block_index: 12
+other_block_index: 44
+other_block_index: 24
+other_block_index: 36
+other_block_index: 48
+other_block_index: 56
+other_block_index: 44
+other_block_index: 56
+other_block_index: 16
+other_block_index: 48
+other_block_index: 36
+other_block_index: 36
+other_block_index: 48
+other_block_index: 56
+other_block_index: 4
+other_block_index: 36
+other_block_index: 16
+other_block_index: 24
+other_block_index: 44
+other_block_index: 56
+other_block_index: 12
+other_block_index: 44
+other_block_index: 24
+other_block_index: 24
+other_block_index: 43
+other_block_index: 36
+other_block_index: 
+E.other_block_index: 20
+other_block_index: 28
+.
+Finished in 0.166058 seconds.
+
+  1) Error:
+test_grid_generator(TestGrid):
+ArgumentError: comparison of Fixnum with nil failed
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:147:in `<'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:147:in `slide'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:60:in `block in next_states'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:59:in `each'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:59:in `next_states'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:79:in `next_states_ordered_by_manhattan_distance'
+    /home/dvingo/Projects/graphMatrix/lib/mvGraph.rb:75:in `search'
+    test_grid.rb:253:in `test_grid_generator'
+
+13 tests, 50 assertions, 0 failures, 1 errors, 0 skips
+
+Test run options: --seed 31164

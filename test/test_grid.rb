@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '../lib/grid.rb'
 require_relative '../lib/block.rb'
-require_relative '../../mvGraph/lib/mvGraph.rb'
+require_relative '../../graphMatrix/lib/mvGraph.rb'
 
 class TestGrid < MiniTest::Unit::TestCase
   def setup

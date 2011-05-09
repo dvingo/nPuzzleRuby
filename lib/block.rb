@@ -1,5 +1,5 @@
 require 'sdl'
-require_relative '../../mvGraph/lib/mvGraph.rb'
+require_relative '../../graphMatrix/lib/mvGraph.rb'
 class Block
   @@image_loc = "../images/blockWhite.png"
   attr_reader :number

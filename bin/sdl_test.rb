@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 require 'sdl'
 require_relative '../lib/grid.rb'
 require_relative '../lib/block.rb'
