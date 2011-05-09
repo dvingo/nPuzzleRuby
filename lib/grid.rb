@@ -143,12 +143,15 @@ class Grid < Vertex
       end
       other_block_index = @id.index(other_block_id) 
       if other_block_index.nil?
+	puts "new_rows: #{new_rows}"
 	puts "block(#{x}, #{y}): #{block(x, y)}"
 	puts "block(#{x+1}, #{y}): #{block(x+1, y)}"
 	puts "@rows: #{@rows}"
 	puts "direction: #{direction}"
         puts "block_id #{block_id}"
 	puts "other_block_id: #{other_block_id}"
+	puts "other_block_index: #{other_block_index}"
+	puts "block_index: #{block_index}"
 	puts "@id: #{@id}"
       end
       # if block_index is first copy other_block's id first so we can still overwrite current_block's id after
