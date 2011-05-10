@@ -70,17 +70,17 @@ solved_path.each do |step|
   #screen.flip
   #sleep 2
 end
-#grid = Grid.new(grid_size, grid_size, goal_grid_blocks)
-#graph = Graph.new
-#graph.add_vertex(grid)
-#last_step = [grid, 0]
-#for i in 0..10 do
-#  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
-#  draw_grid(walk_result[0], screen, font)
-#  screen.flip
-#  sleep 2
-#  last_step = walk_result
-#end
+grid = Grid.new(grid_size, grid_size, goal_grid_blocks)
+graph = Graph.new
+graph.add_vertex(grid)
+last_step = [grid, 0]
+for i in 0..10 do
+  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
+  draw_grid(walk_result[0], screen, font)
+  screen.flip
+  sleep 2
+  last_step = walk_result
+end
 
 while true
   while event = SDL::Event.poll

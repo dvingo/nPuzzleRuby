@@ -1,279 +1,138 @@
 Loaded suite test_grid
 Started
-....other_block_index: 20
-other_block_index: 28
-..other_block_index: 20
-other_block_index: 28
-other_block_index: 8
-other_block_index: 32
-other_block_index: 16
-other_block_index: 4
-other_block_index: 28
-other_block_index: 12
-other_block_index: 20
-..other_block_index: 24
-other_block_index: 56
-other_block_index: 36
-other_block_index: 44
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
+..grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303141300231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110721003109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112212321303141315230033
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+.......grid_state.id: 010002100320040105110021070208120622
+grid_state.id: 010002100320040105110621070200120822
+grid_state.id: 010002100020040105110321070208120622
+grid_state.id: 010002100320040105110621070208120022
+grid_state.id: 010002100320040100110521070208120622
+grid_state.id: 010000100720050108110321020204120622
+grid_state.id: 010008100720050104110321020200120622
+grid_state.id: 010008100720000105110321020204120622
+grid_state.id: 010008100720050103110021020204120622
 ..1 2 3 4 
 5 6 7 8 
 9 10 0 11 
 13 14 15 12 
-start_state: #<Grid:0x8054cec>
+start_state: #<Grid:0x82763f4>
 1 2 3 4 
 5 6 7 8 
 9 10 0 11 
 13 14 15 12 
-get_graph_vertex(current_vertex) #<Grid:0x8054cec>
+get_graph_vertex(current_vertex) #<Grid:0x82763f4>
 neighbor_func: random_next_states
-other_block_index: 24
-other_block_index: 36
-other_block_index: 56
-other_block_index: 44
 1 2 3 4 
 5 6 7 8 
 9 10 11 0 
 13 14 15 12 
-get_graph_vertex(current_vertex) #<Grid:0x8187f60>
+get_graph_vertex(current_vertex) #<Grid:0x826787c>
 neighbor_func: random_next_states
-other_block_index: 40
-other_block_index: 60
-other_block_index: 28
-1 2 3 4 
-5 6 7 0 
-9 10 11 8 
-13 14 15 12 
-get_graph_vertex(current_vertex) #<Grid:0x8266760>
-neighbor_func: random_next_states
-other_block_index: 12
-other_block_index: 24
-other_block_index: 44
-1 2 3 0 
-5 6 7 4 
-9 10 11 8 
-13 14 15 12 
-Start: #<Grid:0x825f4b0>
 1 2 3 4 
 5 6 7 8 
 9 10 0 11 
 13 14 15 12 
-Goal: #<Grid:0x8054cec>
-other_block_index: 28
-other_block_index: 8
-other_block_index: 12
-other_block_index: 44
-other_block_index: 24
-other_block_index: 24
-other_block_index: 4
-other_block_index: 12
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 28
-other_block_index: 8
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 20
-other_block_index: 0
-other_block_index: 8
-other_block_index: 24
-other_block_index: 56
-other_block_index: 36
-other_block_index: 44
-other_block_index: 44
-other_block_index: 56
-other_block_index: 12
-other_block_index: 44
-other_block_index: 24
-other_block_index: 24
-other_block_index: 56
-other_block_index: 36
-other_block_index: 44
-other_block_index: 4
-other_block_index: 36
-other_block_index: 16
-other_block_index: 24
-other_block_index: 24
-other_block_index: 4
-other_block_index: 12
-other_block_index: 24
-other_block_index: 4
-other_block_index: 12
-other_block_index: 24
-other_block_index: 56
-other_block_index: 36
-other_block_index: 44
-other_block_index: 4
-other_block_index: 36
-other_block_index: 16
-other_block_index: 24
-other_block_index: 12
-other_block_index: 44
-other_block_index: 24
-other_block_index: 4
-other_block_index: 36
-other_block_index: 16
-other_block_index: 24
-other_block_index: 16
-other_block_index: 4
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 40
-other_block_index: 52
-other_block_index: 60
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
-other_block_index: 40
-other_block_index: 52
-other_block_index: 60
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 28
-other_block_index: 8
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 40
-other_block_index: 52
-other_block_index: 60
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 0
-other_block_index: 32
-other_block_index: 20
-other_block_index: 20
-other_block_index: 0
-other_block_index: 8
-other_block_index: 20
-other_block_index: 0
-other_block_index: 8
-other_block_index: 28
-other_block_index: 8
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 20
-other_block_index: 0
-other_block_index: 8
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 40
-other_block_index: 52
-other_block_index: 60
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 0
-other_block_index: 32
-other_block_index: 20
-other_block_index: 20
-other_block_index: 0
-other_block_index: 8
-other_block_index: 28
-other_block_index: 60
-other_block_index: 40
-other_block_index: 28
-other_block_index: 8
-other_block_index: 20
-other_block_index: 52
-other_block_index: 32
-other_block_index: 40
-other_block_index: 8
-other_block_index: 40
-other_block_index: 20
-other_block_index: 28
-other_block_index: 0
-other_block_index: 32
-other_block_index: 20
-other_block_index: 0
-other_block_index: 32
-other_block_index: 20
-other_block_index: 24
-other_block_index: 56
-other_block_index: 36
-other_block_index: 44
-other_block_index: 4
-other_block_index: 36
-other_block_index: 16
-other_block_index: 24
-other_block_index: 24
-other_block_index: 4
-other_block_index: 12
-other_block_index: 12
-other_block_index: 44
-other_block_index: 24
-other_block_index: 36
-other_block_index: 48
-other_block_index: 56
-other_block_index: 44
-other_block_index: 56
-other_block_index: 16
-other_block_index: 48
-other_block_index: 36
-other_block_index: 36
-other_block_index: 48
-other_block_index: 56
-other_block_index: 4
-other_block_index: 36
-other_block_index: 16
-other_block_index: 24
-other_block_index: 44
-other_block_index: 56
-other_block_index: 12
-other_block_index: 44
-other_block_index: 24
-other_block_index: 24
-other_block_index: 43
-other_block_index: 36
-other_block_index: 
-E.other_block_index: 20
-other_block_index: 28
-.
-Finished in 0.166058 seconds.
+get_graph_vertex(current_vertex) #<Grid:0x825bfcc>
+neighbor_func: random_next_states
+1 2 3 4 
+5 6 7 8 
+9 10 11 0 
+13 14 15 12 
+Start: #<Grid:0x8241d34>
+1 2 3 4 
+5 6 7 8 
+9 10 0 11 
+13 14 15 12 
+Goal: #<Grid:0x82763f4>
+grid_state.id: 0100021003200430050106110721003109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112212321303141315230033
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303141300231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112212321303141300231533
+grid_state.id: 0100021003200030050106110721043109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110021073109021012112208321303141315231233
+grid_state.id: 0100021000200430050106110321083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+grid_state.id: 0100021003200430050100110621083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110821003109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303001314231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303141312230033
+grid_state.id: 0100021003200430050100110721083109020612102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021412102211321303001315231233
+grid_state.id: 0100021003200430050106110721083100020912102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+grid_state.id: 0100021003200430050106110721003109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112212321303141315230033
+grid_state.id: 0100021003200430050106110721083109021012002211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012002212321303141311231533
+grid_state.id: 0100021003200430050106110721083109021012112212321303001314231533
+grid_state.id: 0100021003200430050106110721083109021012112212321303141315230033
+grid_state.id: 0100021000200430050106110321073109021012112208321303141315231233
+grid_state.id: 0100021003200430050106111121073109021012002208321303141315231233
+grid_state.id: 0100021003200430050100110621073109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721003109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721003109021012112208321303141315231233
+grid_state.id: 0100021000200330050106110721043109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303141300231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100001003200430050102110621083109021012072211321303141315231233
+grid_state.id: 0100021003200430050110110621083109020012072211321303141315231233
+grid_state.id: 0100021003200430000105110621083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100001002200430050106110321083109021012072211321303141315231233
+grid_state.id: 0100021004200030050106110321083109021012072211321303141315231233
+grid_state.id: 0100021003200030050106110821043109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110821113109021012072200321303141315231233
+grid_state.id: 0100021003200430050106110021083109021012072211321303141315231233
+grid_state.id: 0100021003200430050106110721083109020012152211321303101314231233
+grid_state.id: 0100021003200430050106110721083109021012152211320003131314231233
+grid_state.id: 0100021003200430050106110721083109021012152211321303141300231233
+grid_state.id: 0100021003200430050106110721083109021012152200321303141312231133
+grid_state.id: 0100021003200430050106110721083109021012152211321303141300231233
+grid_state.id: 0100021003200430000106110721083105020912102211321303141315231233
+grid_state.id: 0100021003200430050106110721083113020912102211320003141315231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021412102211320003131315231233
+grid_state.id: 0100021003200430050106110721083109021412102211321303151300231233
+grid_state.id: 0100001003200430050102110721083109020612102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109020012102211321303141315231233
+grid_state.id: 0100021003200430000105110721083109020612102211321303141315231233
+grid_state.id: 0100021003200430050107110021083109020612102211321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112212321303141300231533
+grid_state.id: 0100021003200030050106110721043109021012112208321303141315231233
+grid_state.id: 0100021003200430050106110721083109021012112200321303141315231233
+grid_state.id: 0100021003200430050106110021073109021012112208321303141315231233
+E..
+Finished in 0.049557 seconds.
 
   1) Error:
 test_grid_generator(TestGrid):
 ArgumentError: comparison of Fixnum with nil failed
-    /home/dvingo/Projects/nPuzzle/lib/grid.rb:147:in `<'
-    /home/dvingo/Projects/nPuzzle/lib/grid.rb:147:in `slide'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:159:in `<'
+    /home/dvingo/Projects/nPuzzle/lib/grid.rb:159:in `slide'
     /home/dvingo/Projects/nPuzzle/lib/grid.rb:60:in `block in next_states'
     /home/dvingo/Projects/nPuzzle/lib/grid.rb:59:in `each'
     /home/dvingo/Projects/nPuzzle/lib/grid.rb:59:in `next_states'
     /home/dvingo/Projects/nPuzzle/lib/grid.rb:79:in `next_states_ordered_by_manhattan_distance'
     /home/dvingo/Projects/graphMatrix/lib/mvGraph.rb:75:in `search'
-    test_grid.rb:253:in `test_grid_generator'
+    test_grid.rb:254:in `test_grid_generator'
 
-13 tests, 50 assertions, 0 failures, 1 errors, 0 skips
+14 tests, 59 assertions, 0 failures, 1 errors, 0 skips
 
-Test run options: --seed 31164
+Test run options: --seed 48849

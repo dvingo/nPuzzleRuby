@@ -11,7 +11,7 @@ class Grid < Vertex
     @y = y
     @rows = Array.new(@y) { Array.new }
     k = 0
-    # A grid's Id is a string comprised of each block's number (zero padded),
+    # A grid's ID is a string comprised of each block's number (zero padded),
     # plus the x and y location of that block, this way we can quickly determine equality
     # by comparing strings instead of all the blocks in the grid.
     @id = ""
@@ -95,28 +95,28 @@ class Grid < Vertex
       rows[y][x].x = x
       rows[y][x].y = y
       rows[y-1][x] = Block.new(0)
-      rows[y-1][x].x = x 
+      rows[y-1][x].x = x
       rows[y-1][x].y = y-1
     when "down"
       rows[y][x] = rows[y+1][x]
       rows[y][x].x = x
       rows[y][x].y = y
       rows[y+1][x] = Block.new(0)
-      rows[y+1][x].x = x 
+      rows[y+1][x].x = x
       rows[y+1][x].y = y+1
     when "left"
       rows[y][x] = rows[y][x-1]
       rows[y][x].x = x
       rows[y][x].y = y
       rows[y][x-1] = Block.new(0)
-      rows[y][x-1].x = x-1 
+      rows[y][x-1].x = x-1
       rows[y][x-1].y = y
     when "right"
       rows[y][x] = rows[y][x+1]
       rows[y][x].x = x
       rows[y][x].y = y
       rows[y][x+1] = Block.new(0)
-      rows[y][x+1].x = x+1 
+      rows[y][x+1].x = x+1
       rows[y][x+1].y = y
     end
   end
@@ -129,39 +129,6 @@ class Grid < Vertex
     return_nil = true
     unless is_invalid_move?(x, y, direction, new_rows)
       return_nil = false
-      block_id = block(x, y).id
-      block_index = @id.index(block_id)
-      case direction
-      when "up"
-	other_block_id = block(x, y-1).id
-      when "down"
-	other_block_id = block(x, y+1).id
-      when "left"
-	other_block_id = block(x-1, y).id
-      when "right"
-	other_block_id = block(x+1, y).id
-      end
-      other_block_index = @id.index(other_block_id) 
-      if other_block_index.nil?
-	puts "new_rows: #{new_rows}"
-	puts "block(#{x}, #{y}): #{block(x, y)}"
-	puts "block(#{x+1}, #{y}): #{block(x+1, y)}"
-	puts "@rows: #{@rows}"
-	puts "direction: #{direction}"
-        puts "block_id #{block_id}"
-	puts "other_block_id: #{other_block_id}"
-	puts "other_block_index: #{other_block_index}"
-	puts "block_index: #{block_index}"
-	puts "@id: #{@id}"
-      end
-      # if block_index is first copy other_block's id first so we can still overwrite current_block's id after
-      if block_index < other_block_index
-	@id.sub!(other_block_id, block_id)
-	@id.sub!(block_id, other_block_id)
-      else
-	@id.sub!(block_id, other_block_id)
-	@id.sub!(other_block_id, block_id)
-      end
       swap_blocks(x, y, direction, new_rows)
     end
     if return_nil == false
@@ -171,7 +138,6 @@ class Grid < Vertex
     end
   end
   
-  #
   # Performs boundary checks with passed direction
   #TODO refactor with less awkward syntax
   #

@@ -216,12 +216,12 @@ class TestGrid < MiniTest::Unit::TestCase
 		 "The @solvable_goal_4x4 should be the solution for this search."
   end
 
-  #def test_dfs_puzzle_search
-  #  setup_bfs_grid
-  #  @graph = Graph.new
-  #  @graph.add_vertex(@grid)
-  #  @graph.search(@grid, "lifo", :next_states, @bfs_grid)  
-  #end
+  def test_dfs_puzzle_search
+    setup_bfs_grid
+    @graph = Graph.new
+    @graph.add_vertex(@grid)
+    @graph.search(@grid, "lifo", :next_states_ordered_by_manhattan_distance, @bfs_grid)  
+  end
 
   def test_block_to_loc
     assert_equal 0, @grid.block_to_loc(Block.new(1))[0], "Block 1's x location should be 0."
@@ -242,6 +242,7 @@ class TestGrid < MiniTest::Unit::TestCase
     setup_4x4
     #start_grid = @grid
     start_grid = @grid_4x4
+    assert_equal "0100021003200430050106110721083109021012002211321303141315231233", @grid_4x4.id, "grid_4x4's id is wrong."
     distance = 3
     @graph = Graph.new
     @graph.add_vertex(start_grid)
@@ -256,7 +257,6 @@ class TestGrid < MiniTest::Unit::TestCase
       puts "path[#{i}]: #{p}"
     end
     steps = path.length - 1
-    #steps = search_result[-1]
     assert_equal distance, steps, "The number of steps taken to solve the puzzle should be the same as the generated puzzle's distance"
   end
 
@@ -291,18 +291,38 @@ class TestGrid < MiniTest::Unit::TestCase
   end
 
   def test_slide
+    setup_empty_middle_grid
     temp = @grid.slide("up")
     up = Grid.new(3, 3, temp)
     down = @grid.slide("down")
     temp = @grid.slide("left")
     left = Grid.new(3, 3, temp)
     right = @grid.slide("right")
-    
     refute_nil up, "up should not be nil."
+    assert_equal "010002100320040105110021070208120622", up.id, "up's id is wrong."
+    assert_equal "010002100320040105110621070200120822", left.id, "left's id is wrong."
     assert Block.new(0) == up.block(2, 1), "Should be able to slide nil up."
     assert_nil down, "Should not be able to slide nil down."
     refute_nil left, "left should not be nil."
     assert_equal Block.new(0), left.block(1, 2), "Should be able to slide nil left."
     assert_nil right, "Should not be able to slide nil right."
+    @empty_middle_grid
+    assert_equal "010008100720050100110321020204120622", @empty_middle_grid.id, "empty_middle_grid's id is wrong."
+    temp = @empty_middle_grid.slide("up")
+    up2 = Grid.new(3,3,temp) 
+    assert_equal "010000100720050108110321020204120622", up2.id, "up2's id is wrong."
+    temp = @empty_middle_grid.slide("left")
+    left2 = Grid.new(3,3,temp) 
+    assert_equal "010008100720000105110321020204120622", left2.id, "left2's id is wrong."
+    temp = @empty_middle_grid.slide("right")
+    right2 = Grid.new(3,3,temp) 
+    assert_equal "010008100720050103110021020204120622", right2.id, "right2's id is wrong."
+    temp = @empty_middle_grid.slide("down")
+    down2 = Grid.new(3,3,temp)
+    assert_equal "010008100720050104110321020200120622", down2.id, "down2's id is wrong."
+  end
+   
+  def test_id
+    assert_equal "010002100320040105110621070208120022", @grid.id, "The grid and its id should be equal."
   end
 end
