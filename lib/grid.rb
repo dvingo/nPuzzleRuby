@@ -4,9 +4,14 @@ class Grid < Vertex
   include Comparable
   attr_reader :x, :y, :rows, :id
   attr_accessor :distance
+  attr_accessor :man_distance
+  attr_accessor :score
 
   def initialize(x, y, blocks)
     super(self.object_id)
+    @man_distance = 0
+    @distance = 0
+    @score = 0
     @x = x
     @y = y
     @rows = Array.new(@y) { Array.new }
@@ -77,12 +82,22 @@ class Grid < Vertex
   def next_states_ordered_by_manhattan_distance(goal_state)
     return_array = []
     next_states.each do |grid_state|
-      grid_state.distance = goal_state.manhattan_distance(grid_state)
+      grid_state.man_distance = goal_state.manhattan_distance(grid_state)
       # we'd want to sort on insertion instead of using sort_by
       # return_array.add_in_sorted_order
       return_array << grid_state
     end
-    return_array.sort_by! { |state| state.distance }
+    return_array.sort_by! { |state| state.man_distance }
+    return_array
+  end
+
+  def next_states_ordered_by_a_star(goal_state)
+    return_array = []
+    next_states_ordered_by_manhattan_distance(goal_state).each do |grid_state|
+      grid_state.score = grid_state.distance + grid_state.man_distance
+       return_array << grid_state
+    end
+    return_array.sort_by! { |state| state.score }
     return_array
   end
 
