@@ -60,29 +60,15 @@ goal_grid = make_start_grid(grid_size)
 start_grid = generate_random_start_grid(grid_size, 20)
 new_graph = Graph.new
 new_graph.add_vertex(start_grid)
-puts "start_grid: #{start_grid}"
-puts "goal_grid: #{goal_grid}"
 new_graph.search(start_grid, "belo", :next_states_ordered_by_a_star, goal_grid, nil)
 
 solved_path = new_graph.shortest_path(start_grid, goal_grid)
-puts "got here 6"
 solved_path.each do |step|
   puts "step: #{step}"
   draw_grid(step, screen, font)
   screen.flip
   sleep 0.5 
 end
-#grid = Grid.new(grid_size, grid_size, goal_grid_blocks)
-#graph = Graph.new
-#graph.add_vertex(grid)
-#last_step = [grid, 0]
-#for i in 0..10 do
-#  walk_result = graph.walk_n_steps(last_step[0], :random_next_states, 1)
-#  draw_grid(walk_result[0], screen, font)
-#  screen.flip
-#  sleep 2
-#  last_step = walk_result
-#end
 
 while true
   while event = SDL::Event.poll
@@ -93,13 +79,10 @@ while true
     when SDL::Event::MouseMotion
       x = event.x
       y = event.y
-      #puts "x: #{x}, y: #{y}"
     when SDL::Event::MouseButtonDown
       x = event.x
       y = event.y
-      #puts "x: #{x}, y: #{y}"
     end
   end
-
   sleep 0.05
 end

@@ -3,9 +3,7 @@ class Grid < Vertex
   include Enumerable
   include Comparable
   attr_reader :x, :y, :rows, :id
-  attr_accessor :distance
-  attr_accessor :man_distance
-  attr_accessor :score
+  attr_accessor :distance, :man_distance, :score
 
   def initialize(x, y, blocks)
     super(self.object_id)
