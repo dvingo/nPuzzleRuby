@@ -256,4 +256,29 @@ class Grid < Vertex
     end
     ret_values
   end
+
+  def get_blank_direction(the_block)
+    direction = nil
+    blank_x, blank_y = block_to_loc(Block.new(0))
+    puts "blank_x: #{blank_x}"
+    puts "blank_y: #{blank_y}"
+    puts "the_block.x: #{the_block.x}"
+    puts "the_block.y: #{the_block.y}"
+    if the_block.x == blank_x
+      puts "same column"
+      if the_block.y == blank_y + 1 
+        direction = "down"  
+      elsif the_block.y == blank_y - 1
+        direction = "up"
+      end
+    elsif the_block.y == blank_y
+      puts "same row"
+      if the_block.x == blank_x + 1 
+        direction = "right"
+      elsif the_block.x == blank_x - 1
+        direction = "left"
+      end
+    end 
+    direction
+  end
 end

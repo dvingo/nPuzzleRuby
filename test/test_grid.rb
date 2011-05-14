@@ -325,4 +325,9 @@ class TestGrid < MiniTest::Unit::TestCase
   def test_id
     assert_equal "010002100320040105110621070208120022", @grid.id, "The grid and its id should be equal."
   end
+
+  def test_get_blank_direction
+    assert_equal "left", @grid.get_blank_direction(@grid.block(1,2)), "Blank should move left to switch with block 8"
+    assert_equal nil, @grid.get_blank_direction(@grid.block(0,0)), "Blank should not be able to move to the space occupied by block 1"
+  end
 end

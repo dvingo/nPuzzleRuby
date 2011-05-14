@@ -46,20 +46,43 @@ def game_loop
     while event = SDL::Event.poll
       case event
       when SDL::Event::KeyDown, SDL::Event::Quit
-	@font.close
-	return
-      when SDL::Event::MouseMotion
-	x = event.x
-	y = event.y
-	@goal_grid.each do |block|
-	  if x < block.x + block.width and x > block.x \
-	      and y < block.y + block.height and y > block.y 
-            puts "In block: #{block}"
-	  end
-	end
+        @font.close
+        return
       when SDL::Event::MouseButtonDown
-	x = event.x
-	y = event.y
+        x = event.x
+        y = event.y
+        current_block = nil
+        @goal_grid.each do |block|
+          #puts "block.x: #{block.x}"
+          #puts "block.y: #{block.y}"
+          #puts "block.width: #{block.width}"
+          #puts "block.height: #{block.height}"
+          left = (block.x + 1) * block.width
+          right = ((block.x + 1) * block.width) + block.width
+          top = (block.y + 1) * block.height
+          bottom = ((block.y + 1) * block.height) + block.height
+          if x < right and x > left \
+              and y < bottom and y > top 
+                puts "In block: #{block}"
+                current_block = block
+                break
+          end
+          #*set current block number and break
+          #Check to see if this block neighbors the 0 block
+          #If it does
+          #  Get direction to pass to slide(...) method
+          #  slide(direction)
+        end
+        unless current_block.nil?
+          the_direction = @goal_grid.get_blank_direction(current_block)
+          puts "the_direction: #{the_direction}"
+          unless the_direction.nil?
+            @goal_grid = Grid.new(4, 4, @goal_grid.slide(the_direction))
+            puts "new @goal_grid: #{@goal_grid}"
+            draw_grid(@goal_grid, @screen, @font)
+            @screen.flip
+          end
+        end
       end
     end
     sleep 0.05

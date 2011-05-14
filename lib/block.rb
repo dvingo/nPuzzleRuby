@@ -5,6 +5,8 @@ class Block
   attr_accessor :x, :y, :height, :width
   def initialize(number)
     @number = number
+    @width = 64
+    @height = 64
   end
 
   # Constructs string id for a block in the form "abxy"

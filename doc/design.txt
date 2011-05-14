@@ -8,3 +8,4 @@ Store the grids as a list of numbers and read them in from file or from a genera
  - let user move blocks around for goal condition
  - click 'solve'
  - produces each step of the output as a tree or just a series of steps
+
