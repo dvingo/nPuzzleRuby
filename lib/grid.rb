@@ -1,4 +1,4 @@
-require_relative '../../graphMatrix/lib/mvGraph.rb'
+require 'mvGraph'
 class Grid < Vertex
   include Enumerable
   include Comparable
