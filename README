@@ -1,0 +1,2 @@
+An implementation of an n-puzzle solver in Ruby using the mvgraph RubyGem. 
+see: http://en.wikipedia.org/wiki/Fifteen_puzzle
